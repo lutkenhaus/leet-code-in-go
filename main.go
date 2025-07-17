@@ -23,32 +23,22 @@ import (
 // - brute force is an option but is not optimal.
 
 func searchIndexes(nums []int, target int) []int {
-	count := 0
 	solution := make([]int, 2)
+
 	for index, value := range nums {
 		if value < int(math.Pow(-10, 9)) || value > int(math.Pow(10, 9)) {
 			return []int{}
 		}
-		if value == target {
-			solution[count] = index
-			count++
-		}
-		if count >= 2 {
-			return solution
-		}
-	}
-
-	for index, value := range nums {
 		for j := index + 1; j < len(nums); j++ {
 			if value+nums[j] == target {
 				solution[0] = index
 				solution[1] = j
-				break
+				return solution
 			}
 		}
 	}
 
-	return solution
+	return nil
 }
 
 func twoSum(nums []int, target int) []int {
