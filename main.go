@@ -17,43 +17,58 @@ import (
 // - use an auxiliar slice with all the numbers where their value is lesser than the target.
 // - test all the possibilities using the smaller slice.
 
-func filterNums(nums []int, target int) (map[int]int, int) {
-	mapPossibilities := make(map[int]int)
+// Approach:
+// - the filter approach was no good, since I didn't account for the fact that
+// the numbers can be negative or zero.
+// - brute force is an option but is not optimal.
 
+func searchIndexes(nums []int, target int) []int {
+	count := 0
+	solution := make([]int, 2)
 	for index, value := range nums {
 		if value < int(math.Pow(-10, 9)) || value > int(math.Pow(10, 9)) {
-			return nil, -1
+			return []int{}
 		}
-		if value < target {
-			mapPossibilities[index] = value
+		if value == target {
+			solution[count] = index
+			count++
+		}
+		if count >= 2 {
+			return solution
 		}
 	}
 
-	return mapPossibilities, len(mapPossibilities)
-}
-
-func twoSum(nums []int, target int) []int {
-	lenArr := len(nums)
-	if lenArr < 2 || lenArr > int(math.Pow(10, 4)) {
-		return []int{}
-	}
-	if target < int(math.Pow(-10, 9)) || target > int(math.Pow(10, 9)) {
-		return []int{}
-	}
-
-	solution := make([]int, 2)
-	mapPossibilities, lenPossibilities := filterNums(nums, target)
-
-	for index, value := range mapPossibilities {
-		for j := index + 1; j < lenPossibilities; j++ {
-			if value+mapPossibilities[j] == target {
+	for index, value := range nums {
+		for j := index + 1; j < len(nums); j++ {
+			if value+nums[j] == target {
 				solution[0] = index
 				solution[1] = j
+				break
 			}
 		}
 	}
 
 	return solution
+}
+
+func twoSum(nums []int, target int) []int {
+	lenArr := len(nums)
+	for _, value := range nums {
+		if value < int(math.Pow(-10, 9)) || value > int(math.Pow(10, 9)) {
+			return nil
+		}
+	}
+
+	switch {
+	case lenArr < 2 || lenArr > int(math.Pow(10, 4)):
+		return []int{}
+
+	case target < int(math.Pow(-10, 9)) || target > int(math.Pow(10, 9)):
+		return []int{}
+
+	default:
+		return searchIndexes(nums, target)
+	}
 }
 
 func printSolution(res []int) {
@@ -77,6 +92,14 @@ func main() {
 
 	thirdCase := []int{3, 3}
 	res = twoSum(thirdCase, 6)
+	printSolution(res)
+
+	fourthCase := []int{0, 4, 3, 0}
+	res = twoSum(fourthCase, 0)
+	printSolution(res)
+
+	fifthCase := []int{-3, 4, 3, 90}
+	res = twoSum(fifthCase, 0)
 	printSolution(res)
 
 }
