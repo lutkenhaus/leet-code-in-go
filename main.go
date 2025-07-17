@@ -43,11 +43,6 @@ func searchIndexes(nums []int, target int) []int {
 
 func twoSum(nums []int, target int) []int {
 	lenArr := len(nums)
-	for _, value := range nums {
-		if value < int(math.Pow(-10, 9)) || value > int(math.Pow(10, 9)) {
-			return nil
-		}
-	}
 
 	switch {
 	case lenArr < 2 || lenArr > int(math.Pow(10, 4)):
