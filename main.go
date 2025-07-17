@@ -2,9 +2,6 @@ package main
 
 import (
 	"fmt"
-	"math"
-	"strconv"
-	"strings"
 )
 
 // Problem:
@@ -22,69 +19,67 @@ import (
 // the numbers can be negative or zero.
 // - brute force is an option but is not optimal.
 
-func searchIndexes(nums []int, target int) []int {
-	solution := make([]int, 2)
+// Key:
+// - the key to solving this problem in an efficient way is to use a HashMap.
+// - I had to search for tips and solutions in order to figure this out.
+// - storing the [value] as the index of the HashMap for every visited number in the array
+// allows us to check if the complement (target - number) of the current number has already been seen.
 
-	for index, value := range nums {
-		if value < int(math.Pow(-10, 9)) || value > int(math.Pow(10, 9)) {
-			return []int{}
-		}
-		for j := index + 1; j < len(nums); j++ {
-			if value+nums[j] == target {
-				solution[0] = index
-				solution[1] = j
-				return solution
-			}
-		}
-	}
-
-	return nil
-}
+const (
+	maxLength = 1e4
+	minValue  = -1e9
+	maxValue  = 1e9
+)
 
 func twoSum(nums []int, target int) []int {
 	lenArr := len(nums)
 
-	switch {
-	case lenArr < 2 || lenArr > int(math.Pow(10, 4)):
+	if lenArr < 2 || lenArr > int(maxLength) {
 		return []int{}
-
-	case target < int(math.Pow(-10, 9)) || target > int(math.Pow(10, 9)):
-		return []int{}
-
-	default:
-		return searchIndexes(nums, target)
 	}
+	if target < int(minValue) || target > int(maxValue) {
+		return []int{}
+	}
+
+	seenNumbers := make(map[int]int)
+
+	for i, n := range nums {
+		if n < int(minValue) || n > int(maxValue) {
+			return []int{}
+		}
+		complement := target - n
+		if j, exists := seenNumbers[complement]; exists {
+			return []int{j, i}
+		}
+		seenNumbers[n] = i
+	}
+	return []int{}
 }
 
 func printSolution(res []int) {
-	strRes := make([]string, 2)
-	for i, v := range res {
-		strRes[i] = strconv.Itoa(v)
+	if len(res) != 2 {
+		fmt.Println("Invalid result length")
+		return
 	}
-	fmt.Println("[", strings.Join(strRes, ", "), "]")
+	fmt.Printf("[%d, %d]\n", res[0], res[1])
 }
 
 func main() {
 	fmt.Println("1. Two Sum")
 
-	firstCase := []int{2, 7, 11, 15}
-	res := twoSum(firstCase, 9)
-	printSolution(res)
+	testCases := []struct {
+		nums   []int
+		target int
+	}{
+		{[]int{2, 7, 11, 15}, 9},
+		{[]int{3, 2, 4}, 6},
+		{[]int{3, 3}, 6},
+		{[]int{0, 4, 3, 0}, 0},
+		{[]int{-3, 4, 3, 90}, 0},
+	}
 
-	secondCase := []int{3, 2, 4}
-	res = twoSum(secondCase, 6)
-	printSolution(res)
-
-	thirdCase := []int{3, 3}
-	res = twoSum(thirdCase, 6)
-	printSolution(res)
-
-	fourthCase := []int{0, 4, 3, 0}
-	res = twoSum(fourthCase, 0)
-	printSolution(res)
-
-	fifthCase := []int{-3, 4, 3, 90}
-	res = twoSum(fifthCase, 0)
-	printSolution(res)
-
+	for _, tc := range testCases {
+		res := twoSum(tc.nums, tc.target)
+		printSolution(res)
+	}
 }
