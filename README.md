@@ -3,4 +3,5 @@ A series of leet code problems solutions using Golang. Not in any particular ord
 
 List of solved problems:
 
+- 1\. Two Sum
 - 412\. Fizz Buzz
