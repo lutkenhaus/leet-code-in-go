@@ -5,4 +5,5 @@ Each branch of this repo is responsible for 1 problem, and represents a solution
 List of solved problems:
 
 - 1\. Two Sum
+- 26\. Remove Duplicates from Sorted Array
 - 412\. Fizz Buzz

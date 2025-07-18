@@ -9,9 +9,17 @@
 // - Or use a HashMap to make the modifications.
 
 // Approach:
-// -
+// - My first approach was using a HashMap to store the unique numbers,
+// while checking if the current number exists, and modifying the original nums array.
+// - Works for tests cases 1 and 2.
+// - After submitting the code passed for all 362 testcases.
+// - I decided to also make a logic to use only 2 pointers.
 
 // Key:
+// - The key to solving this problem is to keep track of the position of the unique numbers,
+// while jumping over the duplicates, making changes as needed.
+// - I needed to search for a Two Pointer example, because I was overthinking the logic,
+// it's simpler than I thought.
 
 package main
 
@@ -33,21 +41,19 @@ func removeDuplicates(nums []int) int {
 		return -1
 	}
 
-	counter := 0
-	uniqueNumbers := make(map[int]int)
-	for index, value := range nums {
-		if nums[index] < minValue || nums[index] > maxValue {
+	uniqueNumberPointer := 1
+
+	for i := 1; i < length; i++ {
+		if nums[i] < minValue || nums[i] > maxValue {
 			return -1
 		}
-
-		if _, exists := uniqueNumbers[value]; !exists {
-			uniqueNumbers[value] = index
-			nums[counter] = value
-			counter++
+		if nums[i] != nums[i-1] {
+			nums[uniqueNumberPointer] = nums[i]
+			uniqueNumberPointer++
 		}
 	}
 
-	return counter
+	return uniqueNumberPointer
 }
 
 func printSolution(nums []int) {
@@ -73,7 +79,7 @@ func main() {
 		{[]int{1, 1, 2}, []int{1, 2}},
 		{[]int{0, 0, 1, 1, 1, 2, 2, 3, 3, 4}, []int{0, 1, 2, 3, 4}},
 		{[]int{3, 3}, []int{3}},
-		{[]int{0, 3, 4, 0}, []int{0, 3, 4}},
+		{[]int{0, 0, 3, 4}, []int{0, 3, 4}},
 		{[]int{-3, 3, 4, 90}, []int{-3, 3, 4, 90}},
 	}
 
