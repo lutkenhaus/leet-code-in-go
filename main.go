@@ -5,25 +5,25 @@ import (
 )
 
 // Problem:
-// - return 2 indices of the 2 numbers that add upt to the target.
-// - there is only one solution.
-// - cannot use the same element twice.
+// - Return 2 indices of the 2 numbers that add up to the target.
+// - There is only one solution.
+// - Cannot use the same element twice.
 
 // First thoughts:
-// - create logic for constraints.
-// - use an auxiliar slice with all the numbers where their value is lesser than the target.
-// - test all the possibilities using the smaller slice.
+// - Create logic for constraints.
+// - Use an auxiliar slice with all the numbers where their value is lesser than the target.
+// - Test all the possibilities using the smaller slice.
 
 // Approach:
-// - the filter approach was no good, since I didn't account for the fact that
+// - The filter approach was no good, since I didn't account for the fact that
 // the numbers can be negative or zero.
-// - brute force is an option but is not optimal.
+// - Brute force is an option but is not optimal.
 
 // Key:
-// - the key to solving this problem in an efficient way is to use a HashMap.
+// - The key to solving this problem in an efficient way is to use a HashMap.
 // - I had to search for tips and solutions in order to figure this out.
-// - storing the [value] as the index of the HashMap for every visited number in the array
-// allows us to check if the complement (target - number) of the current number has already been seen.
+// - Storing the [value] as the index of the HashMap, for every visited number in the array,
+// unlocks the option to check if the complement (target - number) of the current number has already been seen.
 
 const (
 	maxLength = 1e4
@@ -43,15 +43,15 @@ func twoSum(nums []int, target int) []int {
 
 	seenNumbers := make(map[int]int)
 
-	for i, n := range nums {
-		if n < int(minValue) || n > int(maxValue) {
+	for index, number := range nums {
+		if number < int(minValue) || number > int(maxValue) {
 			return []int{}
 		}
-		complement := target - n
+		complement := target - number
 		if j, exists := seenNumbers[complement]; exists {
-			return []int{j, i}
+			return []int{j, index}
 		}
-		seenNumbers[n] = i
+		seenNumbers[number] = index
 	}
 	return []int{}
 }
