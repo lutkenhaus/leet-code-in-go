@@ -23,6 +23,11 @@
 // - Check if the current character is smaller (subtract), equal or greater (add) than the next character.
 // - Use a variable to store the total sum.
 
+// Constraints:
+// 1 <= s.length <= 15
+// s contains only the characters ('I', 'V', 'X', 'L', 'C', 'D', 'M').
+// It is guaranteed that s is a valid roman numeral in the range [1, 3999].
+
 package main
 
 import (
@@ -43,8 +48,8 @@ func romanToInt(s string) int {
 
 	strSlice := strings.Split(s, "")
 	length := len(strSlice)
-
 	totalSum := 0
+
 	for i := 0; i < length; i++ {
 		if i < length-1 && mapSymbols[strSlice[i]] < mapSymbols[strSlice[i+1]] {
 			totalSum -= mapSymbols[strSlice[i]]
