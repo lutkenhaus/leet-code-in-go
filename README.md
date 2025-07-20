@@ -6,6 +6,7 @@ On each branch, different commits may exist with different implementations.
 List of solved problems:
 
 - 1\. Two Sum
+- 9\. Palindrome Number
 - 13\. Roman to Integer
 - 26\. Remove Duplicates from Sorted Array
 - 27\. Remove Element
