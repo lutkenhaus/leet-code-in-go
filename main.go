@@ -28,33 +28,36 @@
 // s contains only the characters ('I', 'V', 'X', 'L', 'C', 'D', 'M').
 // It is guaranteed that s is a valid roman numeral in the range [1, 3999].
 
+// Optimizations:
+// - Instead of using a slice of strings and a map[string]int, a switch statemente or an array of bytes are way faster.
+// - I decided to implement the bytes array optimization.
+
 package main
 
 import (
 	"fmt"
-	"strings"
 )
 
 func romanToInt(s string) int {
-	mapSymbols := map[string]int{
-		"I": 1,
-		"V": 5,
-		"X": 10,
-		"L": 50,
-		"C": 100,
-		"D": 500,
-		"M": 1000,
+
+	var arrSymbols = [89]int{
+		'I': 1,
+		'V': 5,
+		'X': 10,
+		'L': 50,
+		'C': 100,
+		'D': 500,
+		'M': 1000,
 	}
 
-	strSlice := strings.Split(s, "")
-	length := len(strSlice)
+	length := len(s)
 	totalSum := 0
 
 	for i := 0; i < length; i++ {
-		if i < length-1 && mapSymbols[strSlice[i]] < mapSymbols[strSlice[i+1]] {
-			totalSum -= mapSymbols[strSlice[i]]
+		if i < length-1 && arrSymbols[s[i]] < arrSymbols[s[i+1]] {
+			totalSum -= arrSymbols[s[i]]
 		} else {
-			totalSum += mapSymbols[strSlice[i]]
+			totalSum += arrSymbols[s[i]]
 		}
 	}
 
