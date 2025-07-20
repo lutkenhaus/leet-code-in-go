@@ -21,7 +21,8 @@
 // - ( -231 <= x <= 231 - 1 )
 
 // Optmizations:
-// -
+// - No need to use slices for this problem, only realized this after looking up other solutions.
+// - Math is powerful.
 
 package main
 
@@ -38,24 +39,15 @@ func isPalindrome(x int) bool {
 		return false
 	}
 
-	var arrX []int
-	var arrInvertedX []int
-	currentDigit := 0
+	originalX := x
+	reversedX := 0
 
 	for x > 0 {
-		currentDigit = x % 10
-		arrInvertedX = append(arrInvertedX, currentDigit)
-		arrX = append([]int{currentDigit}, arrX...)
-		x = x / 10
+		reversedX = reversedX*10 + x%10
+		x /= 10
 	}
 
-	for i := range arrX {
-		if arrX[i] != arrInvertedX[i] {
-			return false
-		}
-	}
-
-	return true
+	return originalX == reversedX
 }
 
 func main() {
