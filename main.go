@@ -22,8 +22,8 @@ import (
 	"fmt"
 )
 
-func someFunc(string) string {
-	return "LeetCode!"
+func someFunc(s string) string {
+	return s + "!"
 }
 
 func main() {
@@ -31,16 +31,16 @@ func main() {
 		value         string
 		expectedValue string
 	}{
-		{"LeetCode!", "LeetCode!"},
 		{"LeetCode", "LeetCode!"},
-		{"leetcode", "LeetCode!"},
+		{"LeetCode!", "LeetCode!!"},
+		{"LeetCode!!", "LeetCode!!!"},
 	}
 
+	response := ""
 	for _, tc := range testCases {
-		response := someFunc(tc.value)
+		response = someFunc(tc.value)
 		if response != tc.expectedValue {
-			fmt.Printf("error: wanted %v, got (%v)\n", tc.expectedValue, response)
-			return
+			fmt.Printf("error: wanted (%v), got (%v)\n", tc.expectedValue, response)
 		}
 		fmt.Printf("%v - %v\n", tc.value, response)
 	}
