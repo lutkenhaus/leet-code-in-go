@@ -28,8 +28,8 @@
 // s contains only the characters ('I', 'V', 'X', 'L', 'C', 'D', 'M').
 // It is guaranteed that s is a valid roman numeral in the range [1, 3999].
 
-// Optimizations:
-// - Instead of using a slice of strings and a map[string]int, a switch statemente or an array of bytes are way faster.
+// Optmizations:
+// - Instead of using a slice of strings and a map[string]int, a switch statement or an array of bytes are way faster.
 // - I decided to implement the bytes array optimization.
 
 package main
