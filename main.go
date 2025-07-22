@@ -19,7 +19,10 @@
 // - a and b consist of only lowercase English characters.
 
 // Optmizations:
-// -
+// - The first solution worst case scenario was O(n x m). It could be improved.
+// - New handlers for edge cases.
+// - Found out that Knuth and Boyer-Moore algorithms are better to search for substrings.
+// - Decided to improve my brute force solution anyway.
 
 package main
 
@@ -27,29 +30,29 @@ import (
 	"fmt"
 )
 
-func strStr(haystack, needle string) int {
-	h := []byte(haystack)
-	n := []byte(needle)
-	counter := 0
+func strStr(needle string, haystack string) int {
+	if needle == haystack || len(needle) == 0 {
+		return 0
+	}
+	if len(needle) > len(haystack) {
+		return -1
+	}
 
-	for i, haystackValue := range h {
-		counter = 0
-		if haystackValue == n[0] {
-			for z, needleValue := range n {
-				if i+z >= len(h) {
+	for i := 0; i <= len(haystack)-len(needle); i++ {
+		match := true
+		if haystack[i] == needle[0] {
+			for z := 1; z < len(needle); z++ {
+				if needle[z] != haystack[i+z] {
+					match = false
 					break
 				}
-				if needleValue != h[i+z] {
-					break
-				} else {
-					counter++
-					if counter == len(n) {
-						return i
-					}
-				}
+			}
+			if match {
+				return i
 			}
 		}
 	}
+
 	return -1
 }
 
@@ -67,11 +70,10 @@ func main() {
 
 	response := -1
 	for _, tc := range testCases {
-		response = strStr(tc.haystack, tc.needle)
+		response = strStr(tc.needle, tc.haystack)
 		if response != tc.expectedValue {
 			fmt.Printf("error: wanted (%v), got (%v)\n", tc.expectedValue, response)
-		}
-		if response != -1 {
+		} else if response != -1 {
 			fmt.Printf("%v in %v starts at position %d\n", tc.needle, tc.haystack, response)
 		} else {
 			fmt.Println("Needle is not in Haystack...")
