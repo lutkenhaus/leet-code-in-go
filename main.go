@@ -23,6 +23,7 @@
 // - New handlers for edge cases.
 // - Found out that Knuth and Boyer-Moore algorithms are better to search for substrings.
 // - Decided to improve my brute force solution anyway.
+// - A new approach is to use string slicing. 3 lines of code, no nested loops.
 
 package main
 
@@ -39,17 +40,8 @@ func strStr(needle string, haystack string) int {
 	}
 
 	for i := 0; i <= len(haystack)-len(needle); i++ {
-		match := true
-		if haystack[i] == needle[0] {
-			for z := 1; z < len(needle); z++ {
-				if needle[z] != haystack[i+z] {
-					match = false
-					break
-				}
-			}
-			if match {
-				return i
-			}
+		if haystack[i:i+len(needle)] == needle {
+			return i
 		}
 	}
 
