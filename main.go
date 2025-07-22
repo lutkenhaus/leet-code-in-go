@@ -10,10 +10,13 @@
 // Key:
 // -
 
+// Complexity:
+// -
+
 // Constraints:
 // -
 
-// Optmizations:
+// Optimizations:
 // -
 
 package main
@@ -37,11 +40,11 @@ func main() {
 	}
 
 	response := ""
-	for _, tc := range testCases {
+	for i, tc := range testCases {
 		response = someFunc(tc.value)
 		if response != tc.expectedValue {
 			fmt.Printf("error: wanted (%v), got (%v)\n", tc.expectedValue, response)
 		}
-		fmt.Printf("%v - %v\n", tc.value, response)
+		fmt.Printf("Test passed for testcase: %d - a + b = %v\n", i, response)
 	}
 }
