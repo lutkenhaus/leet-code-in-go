@@ -46,7 +46,22 @@ type LinkedList struct {
 }
 
 func (ll *LinkedList) Append(value int) {
-	// TODO: create a logic to append a value to the list.
+	newListNode := &ListNode{Val: value}
+
+	if ll.Head == nil {
+		ll.Head = newListNode
+		return
+	}
+
+	current := ll.Head
+	for current.Next != nil {
+		current = current.Next
+	}
+	current.Next = newListNode
+}
+
+func (ll *LinkedList) Preppend(value int) {
+	// TODO: implement preppend logic
 }
 
 func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
@@ -56,17 +71,18 @@ func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
 
 func main() {
 	testCases := []struct {
-		value         string
-		expectedValue string
+		value1        *ListNode
+		value2        *ListNode
+		expectedValue *ListNode
 	}{
-		{"LeetCode", "LeetCode!"},
-		{"LeetCode!", "LeetCode!!"},
-		{"LeetCode!!", "LeetCode!!!"},
+		{&ListNode{}, &ListNode{}, &ListNode{}},
+		{&ListNode{}, &ListNode{}, &ListNode{}},
+		{&ListNode{}, &ListNode{}, &ListNode{}},
 	}
 
-	response := ""
+	response := &ListNode{}
 	for i, tc := range testCases {
-		response = someFunc(tc.value)
+		response = mergeTwoLists(tc.value1, tc.value2)
 		if response != tc.expectedValue {
 			fmt.Printf("error: wanted (%v), got (%v)\n", tc.expectedValue, response)
 		}
