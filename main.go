@@ -5,7 +5,10 @@
 // - Return the head of the merged linked list.
 
 // First thoughts:
-// -
+// - At first I used a new mergedList and used append to populate this list.
+// - Then I read the question again and saw that it asked to use splicing.
+// - Splicing in this case basically means merging without creating new nodes.
+// - Had to rewrite everything with this in mind.
 
 // Approach:
 // -
@@ -39,22 +42,31 @@ import (
  */
 
 type ListNode struct {
-	Val  *int
+	Val  int
 	Next *ListNode
 }
 
 func NewEmptyNode() *ListNode {
-	return &ListNode{
-		Val:  nil,
-		Next: nil,
-	}
+	return &ListNode{}
 }
 
 func NewNode(val int) *ListNode {
 	return &ListNode{
-		Val:  &val,
+		Val:  val,
 		Next: nil,
 	}
+}
+
+func (ln *ListNode) IsEmpty() bool {
+	if ln == nil {
+		return true
+	}
+
+	if ln.Val == 0 && ln.Next == nil {
+		return true
+	}
+
+	return false
 }
 
 type LinkedList struct {
@@ -73,80 +85,56 @@ func NewLinkedList(node ListNode) *LinkedList {
 	}
 }
 
-func (ll *LinkedList) Append(value *int) {
-	if value == nil {
-		fmt.Printf("possible nil pointer dereference error")
+func (ll *LinkedList) AddIntegersToLinkedList(values []int) {
+	if values == nil {
 		return
 	}
-
-	newListNode := NewNode(*value)
-
 	if ll.Head == nil {
-		ll.Head = newListNode
-		return
+		ll.Head = NewNode(values[0])
 	}
 
-	current := ll.Head
-	for current.Next != nil {
-		current = current.Next
+	if len(values) > 1 {
+		current := ll.Head
+		for i := 1; i < len(values); i++ {
+			newListNode := NewNode(values[i])
+			current.Next = newListNode
+			current = current.Next
+		}
 	}
-	current.Next = newListNode
 }
 
 func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
 	if list1 == nil && list2 == nil {
-		return nil
+		return &ListNode{}
+	}
+	aux := &ListNode{}
+	current := aux
+
+	for list1 != nil && list2 != nil {
+		if list1.Val <= list2.Val {
+			current.Next = list1
+			current = list1
+			list1 = list1.Next
+		} else {
+			current.Next = list2
+			current = list2
+			list2 = list2.Next
+		}
 	}
 
-	mergedLinkedList := NewEmptyList()
-	var currentListNode1, currentListNode2 *ListNode
 	if list1 != nil {
-		if list1.Val != nil && list1.Next != nil {
-			currentListNode1 = &ListNode{Val: list1.Val, Next: list1.Next}
-		} else if list1.Val != nil {
-			currentListNode1 = &ListNode{Val: list1.Val}
-		}
-	}
-	if list2 != nil {
-		if list2.Val != nil && list2.Next != nil {
-			currentListNode2 = &ListNode{Val: list2.Val, Next: list2.Next}
-		} else if list2.Val != nil {
-			currentListNode2 = &ListNode{Val: list2.Val}
-		}
+		current.Next = list1
+	} else {
+		current.Next = list2
 	}
 
-	for currentListNode1 != nil || currentListNode2 != nil {
-		switch {
-		case currentListNode1 == nil:
-			mergedLinkedList.Append(currentListNode2.Val)
-			currentListNode2 = currentListNode2.Next
-		case currentListNode2 == nil:
-			mergedLinkedList.Append(currentListNode1.Val)
-			currentListNode1 = currentListNode1.Next
-		case *currentListNode1.Val > *currentListNode2.Val:
-			mergedLinkedList.Append(currentListNode2.Val)
-			currentListNode2 = currentListNode2.Next
-		case *currentListNode1.Val < *currentListNode2.Val:
-			mergedLinkedList.Append(currentListNode1.Val)
-			currentListNode1 = currentListNode1.Next
-		default:
-			mergedLinkedList.Append(currentListNode1.Val)
-			mergedLinkedList.Append(currentListNode2.Val)
-			currentListNode1 = currentListNode1.Next
-			currentListNode2 = currentListNode2.Next
-		}
-	}
-
-	fmt.Println("")
-	mergedLinkedList.PrintLinkedList()
-
-	return mergedLinkedList.Head
+	return aux.Next
 }
 
-func (ll *LinkedList) PrintLinkedList() {
-	current := ll.Head
+func PrintLinkedList(node *ListNode) {
+	current := node
 	for current != nil {
-		fmt.Printf("%d -> ", *current.Val)
+		fmt.Printf("%d -> ", current.Val)
 		current = current.Next
 	}
 	fmt.Println("nil")
@@ -154,30 +142,13 @@ func (ll *LinkedList) PrintLinkedList() {
 
 func main() {
 
-	zero := 0
-	one := 1
-	two := 2
-	three := 3
-	four := 4
-
 	ll1 := NewEmptyList()
 	ll2 := NewEmptyList()
 	expectedValue1 := NewEmptyList()
 
-	ll1.Append(&one)
-	ll1.Append(&two)
-	ll1.Append(&four)
-
-	ll2.Append(&one)
-	ll2.Append(&three)
-	ll2.Append(&four)
-
-	expectedValue1.Append(&one)
-	expectedValue1.Append(&one)
-	expectedValue1.Append(&two)
-	expectedValue1.Append(&three)
-	expectedValue1.Append(&four)
-	expectedValue1.Append(&four)
+	ll1.AddIntegersToLinkedList([]int{1, 2, 4})
+	ll2.AddIntegersToLinkedList([]int{1, 3, 4})
+	expectedValue1.AddIntegersToLinkedList([]int{1, 1, 2, 3, 4, 4})
 
 	ll3 := NewEmptyList()
 	ll4 := NewEmptyList()
@@ -187,8 +158,8 @@ func main() {
 	ll6 := NewEmptyList()
 	expectedValue3 := NewEmptyList()
 
-	ll6.Append(&zero)
-	expectedValue3.Append(&zero)
+	ll6.AddIntegersToLinkedList([]int{0})
+	expectedValue3.AddIntegersToLinkedList([]int{0})
 
 	testCases := []struct {
 		value1        *ListNode
@@ -206,21 +177,25 @@ func main() {
 		currentExpectedList := &ListNode{}
 		response = mergeTwoLists(tc.value1, tc.value2)
 
-		// TODO: implement better test cases check...
-		switch {
-		case tc.value1 == nil || tc.value2 == nil:
-			fmt.Printf("possible empty lists, use debugger to check the return value")
-		default:
-			currentMergedList = response
-			currentExpectedList = tc.expectedValue
-			for currentExpectedList != nil {
-				if *currentMergedList.Val != *currentExpectedList.Val {
-					fmt.Printf("error: wanted (%v), got (%v)\n", *currentMergedList.Val, *currentExpectedList.Val)
-				}
-				currentMergedList = currentMergedList.Next
-				currentExpectedList = currentExpectedList.Next
-			}
+		if tc.expectedValue == nil && response == nil {
+			fmt.Printf("empty lists")
 			fmt.Printf("Testcase: %d - Passed!\n", i)
 		}
+
+		currentMergedList = response
+		currentExpectedList = tc.expectedValue
+		fmt.Printf("\nmerged list: ")
+		PrintLinkedList(currentMergedList)
+		fmt.Printf("\nexpected list: ")
+		PrintLinkedList(currentExpectedList)
+		for currentExpectedList != nil {
+			if currentMergedList.Val != currentExpectedList.Val {
+				fmt.Printf("error: wanted (%v), got (%v)\n", currentMergedList.Val, currentExpectedList.Val)
+			}
+			currentMergedList = currentMergedList.Next
+			currentExpectedList = currentExpectedList.Next
+		}
+		fmt.Printf("Testcase: %d - Passed!\n", i)
+
 	}
 }
