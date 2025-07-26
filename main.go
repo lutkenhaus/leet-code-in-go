@@ -20,7 +20,8 @@
 // - Remember to solve edge cases.
 
 // Complexity:
-// -
+// - Time: O(n)
+// - Space: O(n)
 
 // Constraints:
 // - 1 <= digits.length <= 100
@@ -28,7 +29,7 @@
 // - digits does not contain any leading 0's.
 
 // Optimizations:
-// -
+// - No optimizations so far.
 
 package main
 
