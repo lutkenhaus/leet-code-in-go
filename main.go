@@ -42,9 +42,14 @@ func main() {
 	response := ""
 	for i, tc := range testCases {
 		response = someFunc(tc.value)
+
+		err := false
 		if response != tc.expectedValue {
 			fmt.Printf("error: wanted (%v), got (%v)\n", tc.expectedValue, response)
+			err = true
 		}
-		fmt.Printf("Test passed for testcase: %d - a + b = %v\n", i, response)
+		if !err {
+			fmt.Printf("Testcase %d OK!\n", i+1)
+		}
 	}
 }
