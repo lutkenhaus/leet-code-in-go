@@ -37,42 +37,15 @@ import (
 )
 
 func plusOne(digits []int) []int {
-	arrLen := len(digits)
-	if digits[arrLen-1] != 9 {
-		digits[arrLen-1] += 1
-		return digits
-	}
-
-	if arrLen == 1 {
-		if digits[0] == 9 {
-			digits[0] = 1
-			digits = append(digits, 0)
-			return digits
-		} else {
-			digits[0] += 1
+	for i := len(digits) - 1; i >= 0; i-- {
+		if digits[i] < 9 {
+			digits[i]++
 			return digits
 		}
+		digits[i] = 0
 	}
 
-	for i := arrLen - 1; i > 0; i-- {
-		if digits[i-1] == 9 && i > 1 {
-			digits[i] = 0
-			continue
-		} else if digits[i-1] == 9 {
-			digits[i] = 0
-			digits[i-1] = 1
-			digits = append(digits, 0)
-		} else if digits[i-1] != 9 {
-			digits[i] = 0
-			digits[i-1] += 1
-			break
-		} else {
-			digits[i] = 1
-			digits = append(digits, 0)
-		}
-	}
-
-	return digits
+	return append([]int{1}, digits...)
 }
 
 func main() {
@@ -80,12 +53,12 @@ func main() {
 		value         []int
 		expectedValue []int
 	}{
-		// {[]int{1, 2, 3}, []int{1, 2, 4}},
-		// {[]int{4, 3, 2, 1}, []int{4, 3, 2, 2}},
-		// {[]int{9}, []int{1, 0}},
-		// {[]int{9, 9}, []int{1, 0, 0}},
-		// {[]int{9, 9, 9}, []int{1, 0, 0, 0}},
-		// {[]int{2, 9, 9, 9, 9}, []int{3, 0, 0, 0, 0}},
+		{[]int{1, 2, 3}, []int{1, 2, 4}},
+		{[]int{4, 3, 2, 1}, []int{4, 3, 2, 2}},
+		{[]int{9}, []int{1, 0}},
+		{[]int{9, 9}, []int{1, 0, 0}},
+		{[]int{9, 9, 9}, []int{1, 0, 0, 0}},
+		{[]int{2, 9, 9, 9, 9}, []int{3, 0, 0, 0, 0}},
 		{[]int{9, 8, 9}, []int{9, 9, 0}},
 	}
 
