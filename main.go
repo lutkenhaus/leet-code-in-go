@@ -30,7 +30,9 @@
 // - Both list1 and list2 are sorted in non-decreasing order.
 
 // Optimizations:
-// -
+// - The code is already at optimal performance O(n+m).
+// - Removed some irrelevant functions.
+// - Removed duplicated assignment inside the loop.
 
 package main
 
@@ -51,27 +53,11 @@ type ListNode struct {
 	Next *ListNode
 }
 
-func NewEmptyNode() *ListNode {
-	return &ListNode{}
-}
-
 func NewNode(val int) *ListNode {
 	return &ListNode{
 		Val:  val,
 		Next: nil,
 	}
-}
-
-func (ln *ListNode) IsEmpty() bool {
-	if ln == nil {
-		return true
-	}
-
-	if ln.Val == 0 && ln.Next == nil {
-		return true
-	}
-
-	return false
 }
 
 type LinkedList struct {
@@ -81,12 +67,6 @@ type LinkedList struct {
 func NewEmptyList() *LinkedList {
 	return &LinkedList{
 		Head: nil,
-	}
-}
-
-func NewLinkedList(node ListNode) *LinkedList {
-	return &LinkedList{
-		Head: &node,
 	}
 }
 
@@ -110,22 +90,21 @@ func (ll *LinkedList) AddIntegersToLinkedList(values []int) {
 
 func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
 	if list1 == nil && list2 == nil {
-		// This should return nil, not empty list
-		return &ListNode{}
+		return nil
 	}
+
 	aux := &ListNode{}
 	current := aux
 
 	for list1 != nil && list2 != nil {
 		if list1.Val <= list2.Val {
 			current.Next = list1
-			current = list1
 			list1 = list1.Next
 		} else {
 			current.Next = list2
-			current = list2
 			list2 = list2.Next
 		}
+		current = current.Next
 	}
 
 	if list1 != nil {
@@ -158,7 +137,7 @@ func main() {
 
 	ll3 := NewEmptyList()
 	ll4 := NewEmptyList()
-	expectedValue2 := NewEmptyNode()
+	var expectedValue2 *ListNode = nil
 
 	ll5 := NewEmptyList()
 	ll6 := NewEmptyList()
@@ -177,31 +156,19 @@ func main() {
 		{ll5.Head, ll6.Head, expectedValue3.Head},
 	}
 
-	response := &ListNode{}
 	for i, tc := range testCases {
-		currentMergedList := &ListNode{}
-		currentExpectedList := &ListNode{}
-		response = mergeTwoLists(tc.value1, tc.value2)
+		mergedList := mergeTwoLists(tc.value1, tc.value2)
+		expectedList := tc.expectedValue
+		PrintLinkedList(mergedList)
+		PrintLinkedList(expectedList)
 
-		if tc.expectedValue == nil && response == nil {
-			fmt.Printf("empty lists")
-			fmt.Printf("Testcase: %d - Passed!\n", i)
-		}
-
-		currentMergedList = response
-		currentExpectedList = tc.expectedValue
-		fmt.Printf("\nmerged list: ")
-		PrintLinkedList(currentMergedList)
-		fmt.Printf("\nexpected list: ")
-		PrintLinkedList(currentExpectedList)
-		for currentExpectedList != nil {
-			if currentMergedList.Val != currentExpectedList.Val {
-				fmt.Printf("error: wanted (%v), got (%v)\n", currentMergedList.Val, currentExpectedList.Val)
+		for expectedList != nil {
+			if mergedList.Val != expectedList.Val {
+				fmt.Printf("error: wanted (%v), got (%v)\n", mergedList.Val, expectedList.Val)
 			}
-			currentMergedList = currentMergedList.Next
-			currentExpectedList = currentExpectedList.Next
+			mergedList = mergedList.Next
+			expectedList = expectedList.Next
 		}
-		fmt.Printf("Testcase: %d - Passed!\n", i)
-
+		fmt.Printf("\nTestcase: %d - Passed!\n\n", i+1)
 	}
 }
