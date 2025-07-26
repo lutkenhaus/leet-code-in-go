@@ -11,13 +11,18 @@
 // - Had to rewrite everything with this in mind.
 
 // Approach:
-// -
+// - Use splicing technique and an empty node as a head of the linked list.
+// - Iterate through both lists until one is empty.
+// - After the loop, point to the not empty list (if needed).
 
 // Key:
-// -
+// - The key to solving this problem is knowing what splicing is (I didn't at first).
+// - Know how to navigate a linked list.
+// - Use pointers efficiently.
 
 // Complexity:
-// -
+// - Time: O(n + m)
+// - Space: O(1)
 
 // Constraints:
 // - The number of nodes in both lists is in the range [0, 50].
@@ -105,6 +110,7 @@ func (ll *LinkedList) AddIntegersToLinkedList(values []int) {
 
 func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
 	if list1 == nil && list2 == nil {
+		// This should return nil, not empty list
 		return &ListNode{}
 	}
 	aux := &ListNode{}
