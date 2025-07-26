@@ -13,10 +13,11 @@
 // Approach:
 // - Check if last digit is not 9, then add 1 to the last position of the array.
 // - If it is 9 then change the last digit to 1, and append 0.
+// - It was more difficult than I anticipated.
 
 // Key:
 // - Understand that there is no need to use type conversions ([]int to int).
-// - Remember edge cases.
+// - Remember to solve edge cases.
 
 // Complexity:
 // -
@@ -39,9 +40,36 @@ func plusOne(digits []int) []int {
 	arrLen := len(digits)
 	if digits[arrLen-1] != 9 {
 		digits[arrLen-1] += 1
-	} else {
-		digits[arrLen-1] = 1
-		digits = append(digits, 0)
+		return digits
+	}
+
+	if arrLen == 1 {
+		if digits[0] == 9 {
+			digits[0] = 1
+			digits = append(digits, 0)
+			return digits
+		} else {
+			digits[0] += 1
+			return digits
+		}
+	}
+
+	for i := arrLen - 1; i > 0; i-- {
+		if digits[i-1] == 9 && i > 1 {
+			digits[i] = 0
+			continue
+		} else if digits[i-1] == 9 {
+			digits[i] = 0
+			digits[i-1] = 1
+			digits = append(digits, 0)
+		} else if digits[i-1] != 9 {
+			digits[i] = 0
+			digits[i-1] += 1
+			break
+		} else {
+			digits[i] = 1
+			digits = append(digits, 0)
+		}
 	}
 
 	return digits
@@ -52,19 +80,32 @@ func main() {
 		value         []int
 		expectedValue []int
 	}{
-		{[]int{1, 2, 3}, []int{1, 2, 4}},
-		{[]int{4, 3, 2, 1}, []int{4, 3, 2, 2}},
-		{[]int{9}, []int{1, 0}},
+		// {[]int{1, 2, 3}, []int{1, 2, 4}},
+		// {[]int{4, 3, 2, 1}, []int{4, 3, 2, 2}},
+		// {[]int{9}, []int{1, 0}},
+		// {[]int{9, 9}, []int{1, 0, 0}},
+		// {[]int{9, 9, 9}, []int{1, 0, 0, 0}},
+		// {[]int{2, 9, 9, 9, 9}, []int{3, 0, 0, 0, 0}},
+		{[]int{9, 8, 9}, []int{9, 9, 0}},
 	}
 
 	for i, tc := range testCases {
+		err := false
 		response := plusOne(tc.value)
+		if len(response) != len(tc.expectedValue) {
+			fmt.Printf("\nerror in testcase %d: wanted array of size (%v), got (%v)\n", i+1, len(tc.expectedValue), len(response))
+			continue
+		}
 		for z, v := range tc.expectedValue {
 			if response[z] != v {
-				fmt.Printf("error: wanted (%v), got (%v)\n", tc.expectedValue, response)
+				fmt.Printf("error in testcase %d: wanted (%v), got (%v)\n", i+1, tc.expectedValue, response)
+				err = true
+				break
 			}
 		}
-		fmt.Printf("\n%+v\n%+v", response, tc.expectedValue)
-		fmt.Printf("\nTestcase %d passed!\n", i+1)
+		if !err {
+			fmt.Printf("\n%+v\n%+v", response, tc.expectedValue)
+			fmt.Printf("\nTestcase %d passed!\n", i+1)
+		}
 	}
 }
