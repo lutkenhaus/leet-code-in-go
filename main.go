@@ -20,13 +20,17 @@
 // - Loop until n is happy (or depressed).
 
 // Complexity:
-// -
+// - Time: O(1)
+// - Space: O(1)
 
 // Constraints:
 // - 1 <= n <= 2^31 - 1
 
 // Optimizations:
-// -
+// - Stop using a magic number to count the loops.
+// - Searching for better solutions I found out that every number either reaches 1 or stays
+// in a pattern.
+// - The pattern is: 4 → 16 → 37 → 58 → 89 → 145 → 42 → 20 → 4
 
 package main
 
