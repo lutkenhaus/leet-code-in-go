@@ -40,30 +40,27 @@ import (
 )
 
 func isHappy(n int) bool {
-	counter := 30
-	sum := 0
-	if n == 1 {
-		return true
+	depressedNums := map[int]bool{
+		4:   true,
+		16:  true,
+		37:  true,
+		58:  true,
+		89:  true,
+		145: true,
+		42:  true,
+		20:  true,
 	}
 
-	for {
+	for n != 1 && !depressedNums[n] {
+		sum := 0
 		for n > 0 {
 			digit := n % 10
 			sum += digit * digit
 			n /= 10
 		}
-
-		if sum == 1 {
-			return true
-		}
 		n = sum
-		sum = 0
-
-		if counter == 0 {
-			return false
-		}
-		counter--
 	}
+	return n == 1
 }
 
 func main() {
