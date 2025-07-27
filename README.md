@@ -15,4 +15,5 @@ List of solved problems:
 - 66\. Plus One
 - 67\. Add Binary
 - 202\. Happy Number
+- 263\. Ugly Number
 - 412\. Fizz Buzz

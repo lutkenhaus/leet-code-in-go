@@ -71,8 +71,8 @@ func main() {
 
 	for i, tc := range testCases {
 		response := uglyNumber(tc.value)
-
 		err := false
+
 		if response != tc.expectedValue {
 			fmt.Printf("Testcase %d error: wanted (%v), got (%v)\n", i+1, tc.expectedValue, response)
 			err = true
