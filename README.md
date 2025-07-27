@@ -14,4 +14,5 @@ List of solved problems:
 - 28\. Find the Index of the First Occurrence in a String
 - 66\. Plus One
 - 67\. Add Binary
+- 202\. Happy Number
 - 412\. Fizz Buzz

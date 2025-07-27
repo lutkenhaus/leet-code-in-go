@@ -39,13 +39,12 @@ func main() {
 		{"LeetCode!!", "LeetCode!!!"},
 	}
 
-	response := ""
 	for i, tc := range testCases {
-		response = someFunc(tc.value)
+		response := someFunc(tc.value)
 
 		err := false
 		if response != tc.expectedValue {
-			fmt.Printf("error: wanted (%v), got (%v)\n", tc.expectedValue, response)
+			fmt.Printf("Testcase %d error: wanted (%v), got (%v)\n", i+1, tc.expectedValue, response)
 			err = true
 		}
 		if !err {
