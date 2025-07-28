@@ -5,12 +5,14 @@
 // First thoughts:
 // - Does every word need to have the longest common prefix? I'll operate as if the answer is no.
 // - Iterate through the words, saving common prefixes in a map.
+// - My first solution was wrong, it did not solve every case.
 
 // Approach:
-// -
+// - I had to search for a solution.
+// - The approach is vertical comparisons between letters.
 
 // Key:
-// -
+// - Know how to manipulate strings properly (which I didn't).
 
 // Complexity:
 // -
@@ -29,31 +31,24 @@ import (
 	"fmt"
 )
 
-func someFunc(strs []string) string {
-	strMap := make(map[string]int)
-	for _, word := range strs {
-		prefix := string(word[0])
-		for z := 0; z < len(word)-1; z++ {
-			strMap[prefix]++
-			if z < len(word)-1 {
-				prefix = prefix + string(word[z+1])
+func longestCommonPrefix(strs []string) string {
+	if len(strs) == 0 {
+		return ""
+	}
+
+	firstWord := strs[0]
+	for i := range firstWord {
+		for j := 1; j < len(strs); j++ {
+			currentWord := strs[j]
+			if i >= len(currentWord) {
+				return firstWord[:i]
+			}
+			if currentWord[i] != firstWord[i] {
+				return firstWord[:i]
 			}
 		}
 	}
-
-	longestCommonPrefix := ""
-	counter := 0
-	for i, value := range strMap {
-		if value >= counter {
-			longestCommonPrefix = i
-			counter = value
-		}
-	}
-
-	if counter > 1 {
-		return longestCommonPrefix
-	}
-	return ""
+	return firstWord
 }
 
 func main() {
@@ -63,11 +58,16 @@ func main() {
 	}{
 		{[]string{"flower", "flow", "flight"}, "fl"},
 		{[]string{"dog", "racecar", "car"}, ""},
+		{[]string{"dog"}, "dog"},
+		{[]string{"a"}, "a"},
+		{[]string{"ab", "a"}, "a"},
+		{[]string{}, ""},
+		{[]string{"", "", "", ""}, ""},
 		{[]string{"ghost", "gas", "guest", "gesture"}, "g"},
 	}
 
 	for i, tc := range testCases {
-		response := someFunc(tc.value)
+		response := longestCommonPrefix(tc.value)
 
 		err := false
 		if response != tc.expectedValue {
