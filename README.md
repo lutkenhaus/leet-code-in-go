@@ -3,6 +3,28 @@ A series of leet code problems solutions using Golang. Not in any particular ord
 Each branch of this repo is responsible for 1 problem, and represents a solution for this problem.
 On each branch, different commits may exist with different implementations.
 
+# Problem:
+-
+
+# First thoughts:
+-
+
+# Approach:
+-
+
+# Key:
+-
+
+# Complexity:
+- Time: $$O(1 + n)$$
+- Space: $$O(1 + n)$$
+
+# Constraints:
+-
+
+# Optimizations:
+-
+
 List of solved problems:
 
 - 1\. Two Sum

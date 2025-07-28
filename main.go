@@ -1,24 +1,3 @@
-// Problem:
-// -
-
-// First thoughts:
-// -
-
-// Approach:
-// -
-
-// Key:
-// -
-
-// Complexity:
-// -
-
-// Constraints:
-// -
-
-// Optimizations:
-// -
-
 package main
 
 import (
