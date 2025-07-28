@@ -25,7 +25,7 @@ On each branch, different commits may exist with different implementations.
 # Optimizations:
 -
 
-List of solved problems:
+# List of solved problems:
 
 - 1\. Two Sum
 - 9\. Palindrome Number
