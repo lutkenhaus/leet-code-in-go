@@ -13,9 +13,11 @@
 
 // Key:
 // - Know how to manipulate strings properly (which I didn't).
+// - Vertical scanning algorithm.
 
 // Complexity:
-// -
+// - Time: O(n) -> n equals the sum of all characters (in all strings).
+// - Space: O(1)
 
 // Constraints:
 // - (1 <= strs.length <= 200)
@@ -23,7 +25,7 @@
 // - strs[i] consists of only lowercase English letters if it is non-empty.
 
 // Optimizations:
-// -
+// - Vertical scanning is an optimal algorithm.
 
 package main
 
