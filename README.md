@@ -50,6 +50,7 @@
 - 26\. Remove Duplicates from Sorted Array
 - 27\. Remove Element
 - 28\. Find the Index of the First Occurrence in a String
+- 58\. Length of Last Word
 - 66\. Plus One
 - 67\. Add Binary
 - 202\. Happy Number
