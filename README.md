@@ -4,11 +4,15 @@
 - Different commits may exist with different implementations.
 - Branches can contain code explanations in the `README.md` file.
 
-# Problem:
--
+# Problem: 58\. Length of Last Word
+- Given a string s consisting of words and spaces, return the length of the last word in the string.
+- A word is a maximal substring consisting of non-space characters only.
 
 # First thoughts:
--
+- Analyze the string from the end. (inverted loop)
+- Stop when space is found.
+- Trim extra spaces.
+- Count the letters.
 
 # Approach:
 -
@@ -21,7 +25,9 @@
 - Space: $$O(1 + n)$$
 
 # Constraints:
--
+- (1 <= s.length <= 10^4)
+- s consists of only English letters and spaces ' '.
+- There will be at least one word in s.
 
 # Optimizations:
 -

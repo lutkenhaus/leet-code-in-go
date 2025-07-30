@@ -2,20 +2,30 @@ package main
 
 import (
 	"fmt"
+	"strings"
 )
 
-func someFunc(s string) string {
-	return s + "!"
+func someFunc(s string) int {
+	if len(s) == 0 {
+		return 0
+	}
+
+	arrWords := strings.Fields(s)
+	lastWord := arrWords[len(arrWords)-1]
+
+	return len(lastWord)
 }
 
 func main() {
 	testCases := []struct {
 		value         string
-		expectedValue string
+		expectedValue int
 	}{
-		{"LeetCode", "LeetCode!"},
-		{"LeetCode!", "LeetCode!!"},
-		{"LeetCode!!", "LeetCode!!!"},
+		{"", 0},
+		{"Hello World", 5},
+		{"   fly me   to   the moon  ", 4},
+		{"luffy is still joyboy", 6},
+		{"test", 4},
 	}
 
 	for i, tc := range testCases {
