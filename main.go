@@ -6,14 +6,16 @@ import (
 )
 
 func someFunc(s string) int {
-	if len(s) == 0 {
-		return 0
+	trimmed := strings.TrimSpace(s)
+
+	counter := 0
+	for i := len(trimmed) - 1; i >= 0; i-- {
+		if trimmed[i] == ' ' {
+			return counter
+		}
+		counter++
 	}
-
-	arrWords := strings.Fields(s)
-	lastWord := arrWords[len(arrWords)-1]
-
-	return len(lastWord)
+	return counter
 }
 
 func main() {

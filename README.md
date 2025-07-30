@@ -15,14 +15,19 @@
 - Count the letters.
 
 # Approach:
--
+- Trim Leading/Trailing Spaces:
+- - Use strings.TrimSpace() to eliminate unnecessary spaces at the start and end of the string.
+- Backward Iteration:
+- - Loop from the end of the trimmed string until a space is encountered.
+- - Count the length of the last word during this iteration.
 
 # Key:
--
+- Efficient Traversal: By processing the string from the end, we stop early once the last word is counted.
+- Space Handling: TrimSpace ensures we ignore irrelevant leading/trailing spaces.
 
 # Complexity:
-- Time: $$O(1 + n)$$
-- Space: $$O(1 + n)$$
+- Time: $$O(n)$$
+- Space: $$O(1)$$
 
 # Constraints:
 - (1 <= s.length <= 10^4)
@@ -30,7 +35,9 @@
 - There will be at least one word in s.
 
 # Optimizations:
--
+- Don't use strings package, instead loop twice.
+- First loop skips the spaces at the end.
+- Second loop counts the word.
 
 # List of solved problems:
 
