@@ -4,22 +4,65 @@ import (
 	"fmt"
 )
 
-func someFunc(s string) string {
-	return s + "!"
+func convert(s string, numRows int) string {
+	if len(s) == 0 {
+		return ""
+	}
+
+	if numRows == 1 || numRows == len(s) {
+		return s
+	}
+
+	mapMatrix := make(map[int]string, numRows)
+	zigzag := false
+	counter := 0
+
+	for _, v := range s {
+		switch {
+		case zigzag:
+			mapMatrix[counter] += string(v)
+			if counter <= 0 {
+				zigzag = false
+				counter++
+			} else {
+				counter--
+			}
+		case !zigzag:
+			mapMatrix[counter] += string(v)
+			if counter >= numRows-1 {
+				zigzag = true
+				counter--
+			} else {
+				counter++
+			}
+		}
+	}
+
+	result := ""
+	for i := 0; i < numRows; i++ {
+		result += mapMatrix[i]
+	}
+
+	return result
 }
 
 func main() {
 	testCases := []struct {
 		value         string
+		numRows       int
 		expectedValue string
 	}{
-		{"LeetCode", "LeetCode!"},
-		{"LeetCode!", "LeetCode!!"},
-		{"LeetCode!!", "LeetCode!!!"},
+		{"PAYPALISHIRING", 3, "PAHNAPLSIIGYIR"},
+		{"PAYPALISHIRING", 4, "PINALSIGYAHRPI"},
+		{"A", 1, "A"},
+		{"", 1, ""},
+		{"string", 1, "string"},
+		{"PAYPAL", 6, "PAYPAL"},
+		{"PAYPAL", 2, "PYAAPL"},
 	}
 
 	for i, tc := range testCases {
-		response := someFunc(tc.value)
+		response := convert(tc.value, tc.numRows)
 
 		err := false
 		if response != tc.expectedValue {
