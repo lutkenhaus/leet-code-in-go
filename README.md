@@ -40,17 +40,27 @@ Input: s = "A", numRows = 1
 Output: "A"  
 
 # First thoughts:
--
+- My first instinct was to use a matrix, but then I realized I had no knowledge of the number of collumns, only rows.
+- So I decided to use a hash map, storing each row as a key, and characters as rune values.
+- Since there are only 2 directions in the zigzag logic (up/down), a boolean flag is sufficient.
 
 # Approach:
--
+- Edge Handling:  
+If numRows == 1 or numRows >= len(s), return s immediately (no zigzag needed).  
+- Row Storage:  
+Use a slice of strings.Builder (optimized for dynamic string building in Go).  
+- Direction Logic:  
+Traverse the string while flipping direction (+1 → down, -1 → up) at the first/last row.  
+- Concatenation:  
+Merge all rows into the final result.
 
 # Key:
--
+- Analyze each character in the string sequentially.
+- Implement logic to determine whether the current direction is up or down (using a toggle or counter).
 
 # Complexity:
-- Time: $$O(1 + n)$$
-- Space: $$O(1 + n)$$
+- Time: $$O(n)$$
+- Space: $$O(n)$$
 
 # Constraints:
 - (1 <= s.length <= 1000)
@@ -58,7 +68,8 @@ Output: "A"
 - (1 <= numRows <= 1000)
 
 # Optimizations:
--
+- Why use a hash map if an array can do the job? strings.Builder is slightly more efficient in Go.
+- Using an integer instead of a bool can eliminate one if condition.
 
 # List of solved problems:
 

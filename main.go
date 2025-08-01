@@ -2,48 +2,33 @@ package main
 
 import (
 	"fmt"
+	"strings"
 )
 
 func convert(s string, numRows int) string {
-	if len(s) == 0 {
-		return ""
-	}
-
 	if numRows == 1 || numRows == len(s) {
 		return s
 	}
 
-	mapMatrix := make(map[int]string, numRows)
-	zigzag := false
+	rows := make([]strings.Builder, numRows)
+	zigzag := -1
 	counter := 0
 
-	for _, v := range s {
-		switch {
-		case zigzag:
-			mapMatrix[counter] += string(v)
-			if counter <= 0 {
-				zigzag = false
-				counter++
-			} else {
-				counter--
-			}
-		case !zigzag:
-			mapMatrix[counter] += string(v)
-			if counter >= numRows-1 {
-				zigzag = true
-				counter--
-			} else {
-				counter++
-			}
+	for _, char := range s {
+		rows[counter].WriteRune(char)
+		if counter == 0 || counter == numRows-1 {
+			zigzag *= -1
 		}
+		counter += zigzag
 	}
 
-	result := ""
-	for i := 0; i < numRows; i++ {
-		result += mapMatrix[i]
+	var result strings.Builder
+
+	for _, row := range rows {
+		result.WriteString(row.String())
 	}
 
-	return result
+	return result.String()
 }
 
 func main() {
