@@ -2,27 +2,57 @@ package main
 
 import (
 	"fmt"
+
+	"github.com/google/go-cmp/cmp"
 )
 
-func someFunc(s string) string {
-	return s + "!"
+func merge(nums1 []int, m int, nums2 []int, n int) []int {
+	if n == 0 {
+		return nums1
+	}
+
+	firstP := m - 1
+	secondP := n - 1
+	thirdP := m + n - 1
+
+	for firstP >= 0 && secondP >= 0 {
+		if nums2[secondP] >= nums1[firstP] {
+			nums1[thirdP] = nums2[secondP]
+			secondP--
+		} else {
+			nums1[thirdP] = nums1[firstP]
+			firstP--
+		}
+		thirdP--
+	}
+
+	for secondP >= 0 {
+		nums1[thirdP] = nums2[secondP]
+		secondP--
+		thirdP--
+	}
+
+	return nums1
 }
 
 func main() {
 	testCases := []struct {
-		value         string
-		expectedValue string
+		nums1         []int
+		m             int
+		nums2         []int
+		n             int
+		expectedValue []int
 	}{
-		{"LeetCode", "LeetCode!"},
-		{"LeetCode!", "LeetCode!!"},
-		{"LeetCode!!", "LeetCode!!!"},
+		{[]int{1, 2, 3, 0, 0, 0}, 3, []int{2, 5, 6}, 3, []int{1, 2, 2, 3, 5, 6}},
+		{[]int{1}, 1, []int{}, 0, []int{1}},
+		{[]int{0}, 0, []int{1}, 1, []int{1}},
 	}
 
 	for i, tc := range testCases {
-		response := someFunc(tc.value)
+		response := merge(tc.nums1, tc.m, tc.nums2, tc.n)
 
 		err := false
-		if response != tc.expectedValue {
+		if !cmp.Equal(response, tc.expectedValue) {
 			fmt.Printf("Testcase %d error: wanted (%v), got (%v)\n", i+1, tc.expectedValue, response)
 			err = true
 		}

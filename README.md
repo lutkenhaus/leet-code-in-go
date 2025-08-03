@@ -4,7 +4,7 @@
 - Different commits may exist with different implementations.
 - Branches can contain code explanations in the `README.md` file.
 
-# Problem:
+# Problem: 88\. Merge Sorted Array
 -
 
 # First thoughts:
