@@ -45,3 +45,4 @@
 - 202\. Happy Number
 - 263\. Ugly Number
 - 412\. Fizz Buzz
+- 977\. Squares of a Sorted Array
