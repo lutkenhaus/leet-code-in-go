@@ -16,7 +16,7 @@ func sortedSquares(nums []int) []int {
 	firstP := 0
 	secondP := len(nums) - 1
 
-	for firstP != secondP {
+	for firstP <= secondP {
 		if nums[firstP]*nums[firstP] >= nums[secondP]*nums[secondP] {
 			result[resultP] = nums[firstP] * nums[firstP]
 			firstP++
@@ -26,7 +26,6 @@ func sortedSquares(nums []int) []int {
 		}
 		resultP--
 	}
-	result[resultP] = nums[secondP] * nums[secondP]
 
 	return result
 }
