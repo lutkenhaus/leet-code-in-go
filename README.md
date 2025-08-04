@@ -67,6 +67,7 @@ Note that because m = 0, there are no elements in nums1. The 0 is only there to 
 - **No Extra Array**: By merging backwards, we avoid the need for an auxiliary array, achieving \( O(1) \) space.
 - **Minimize Comparisons**: Compare only the largest remaining elements, leveraging the sorted nature of the arrays.
 - **No Unnecessary Copies**: Skip copying `nums1`’s remaining elements, as they’re already in their final positions.
+
 # List of solved problems:
 
 - 1\. Two Sum
