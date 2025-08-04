@@ -16,12 +16,12 @@ func merge(nums1 []int, m int, nums2 []int, n int) []int {
 	thirdP := m + n - 1
 
 	for firstP >= 0 && secondP >= 0 {
-		if nums2[secondP] >= nums1[firstP] {
-			nums1[thirdP] = nums2[secondP]
-			secondP--
-		} else {
+		if nums1[firstP] >= nums2[secondP] {
 			nums1[thirdP] = nums1[firstP]
 			firstP--
+		} else {
+			nums1[thirdP] = nums2[secondP]
+			secondP--
 		}
 		thirdP--
 	}
