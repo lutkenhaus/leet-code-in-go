@@ -4,11 +4,27 @@
 - Different commits may exist with different implementations.
 - Branches can contain code explanations in the `README.md` file.
 
-# Problem:
--
+# Problem: 977\. Squares of a Sorted Array
+- Given an integer array `nums` sorted in non-decreasing order, return an array of **the squares of each number** sorted in non-decreasing order.
+
+- Example 1:  
+
+Input: `nums = [-4,-1,0,3,10]`  
+Output: `[0,1,9,16,100]`  
+Explanation: After squaring, the array becomes `[16,1,0,9,100]`.  
+After sorting, it becomes `[0,1,9,16,100]`.  
+
+- Example 2:  
+
+Input: `nums = [-7,-3,2,3,11]`  
+Output: `[4,9,9,49,121]`  
 
 # First thoughts:
--
+- Create a new array.
+- Iterate through `nums` and make calculations, storing the results in the new array.
+- If I use two pointers I can get O(1) space complexity.
+- First pointer points at the beginning of `nums`, second pointer at the end.
+- Check for the greater square. 
 
 # Approach:
 -
@@ -17,11 +33,13 @@
 -
 
 # Complexity:
-- Time: $$O(1 + n)$$
-- Space: $$O(1 + n)$$
+- Time: $$O(n)$$
+- Space: $$O(1)$$
 
 # Constraints:
--
+- `1 <= nums.length <= 10^4`
+- `-10^4 <= nums[i] <= 10^4`
+- `nums` is sorted in non-decreasing order.
 
 # Optimizations:
 -
