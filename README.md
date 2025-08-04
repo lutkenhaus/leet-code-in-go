@@ -41,6 +41,7 @@
 - 58\. Length of Last Word
 - 66\. Plus One
 - 67\. Add Binary
+- 88\. Merge Sorted Array
 - 202\. Happy Number
 - 263\. Ugly Number
 - 412\. Fizz Buzz
