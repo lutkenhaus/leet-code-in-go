@@ -46,6 +46,35 @@ func main() {
 		{[]int{1, 2, 3, 0, 0, 0}, 3, []int{2, 5, 6}, 3, []int{1, 2, 2, 3, 5, 6}},
 		{[]int{1}, 1, []int{}, 0, []int{1}},
 		{[]int{0}, 0, []int{1}, 1, []int{1}},
+		{[]int{1, 1, 0, 0}, 2, []int{1, 1}, 2, []int{1, 1, 1, 1}},
+		{[]int{1, 2, 0, 0}, 2, []int{3, 4}, 2, []int{1, 2, 3, 4}},
+		{[]int{3, 4, 0, 0}, 2, []int{1, 2}, 2, []int{1, 2, 3, 4}},
+		{[]int{1, 0}, 1, []int{2}, 1, []int{1, 2}},
+		{[]int{-2, 0, 0}, 1, []int{-1, 0}, 2, []int{-2, -1, 0}},
+		{func() []int {
+			arr := make([]int, 200)
+			for i := 0; i < 100; i++ {
+				arr[i] = i + 1
+			}
+			return arr
+		}(),
+			100,
+			func() []int {
+				arr := make([]int, 100)
+				for i := 0; i < 100; i++ {
+					arr[i] = i + 101
+				}
+				return arr
+			}(),
+			100,
+			func() []int {
+				arr := make([]int, 200)
+				for i := 0; i < 200; i++ {
+					arr[i] = i + 1
+				}
+				return arr
+			}(),
+		},
 	}
 
 	for i, tc := range testCases {
