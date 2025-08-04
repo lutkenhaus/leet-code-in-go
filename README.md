@@ -27,10 +27,19 @@ Output: `[4,9,9,49,121]`
 - Check for the greater square. 
 
 # Approach:
--
+- Initialize a result array of size `n` to store the sorted squares.
+- Use two pointers: `firstP` at the start (index 0) and `secondP` at the end (index `n-1`) of `nums`.
+- Use a third pointer `resultP` starting at the end of the result array (index `n-1`).
+- While `firstP <= secondP`:
+  - Compare the squares of `nums[firstP]` and `nums[secondP]`.
+  - Place the larger square at `result[resultP]`, increment `firstP` or decrement `secondP`, and decrement `resultP`.
+- Return the result array.
 
 # Key:
--
+- **Two Pointers**: Use pointers at the start and end of the sorted input array to compare squares, leveraging the non-decreasing order.
+- **Backward Filling**: Build the result array from the end to place larger squares first, ensuring sorted order without extra sorting.
+- **Handle Negatives**: Account for negative numbers, as their squares can be larger (e.g., `(-4)^2 = 16 > 3^2 = 9`).
+- **Edge Cases**: Single-element arrays and arrays with duplicates or negative numbers are handled by the two-pointer logic.
 
 # Complexity:
 - Time: $$O(n)$$
@@ -42,7 +51,10 @@ Output: `[4,9,9,49,121]`
 - `nums` is sorted in non-decreasing order.
 
 # Optimizations:
--
+- **Avoid Sorting**: Use two pointers to achieve \( O(n) \) time instead of squaring and sorting (\( O(n \log n) \)).
+- **Single Pass**: Process each element once by comparing squares and placing them directly in sorted order.
+- **No In-Place**: In-place modification is avoided since it would require re-sorting, which is less efficient.
+- **Minimal Extra Space**: Only use the required \( O(n) \) space for the output array, with no additional data structures.
 
 # List of solved problems:
 
@@ -63,3 +75,4 @@ Output: `[4,9,9,49,121]`
 - 202\. Happy Number
 - 263\. Ugly Number
 - 412\. Fizz Buzz
+- 977\. Squares of a Sorted Array
