@@ -42,6 +42,7 @@
 - 66\. Plus One
 - 67\. Add Binary
 - 88\. Merge Sorted Array
+- 108\. Convert Sorted Array to Binary Search Tree
 - 202\. Happy Number
 - 263\. Ugly Number
 - 412\. Fizz Buzz
