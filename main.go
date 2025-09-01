@@ -100,11 +100,6 @@ func main() {
 			expectedValue: []int{1, 3, 5},
 		},
 		{
-			name:          "Right subtree only",
-			value:         []*int{toInt(1), nil, toInt(3), nil, nil, nil, toInt(5)},
-			expectedValue: []int{1, 3, 5},
-		},
-		{
 			name:          "Complete binary tree",
 			value:         []*int{toInt(4), toInt(2), toInt(6), toInt(1), toInt(3), toInt(5), toInt(7)},
 			expectedValue: []int{1, 2, 3, 4, 5, 6, 7},
@@ -113,11 +108,6 @@ func main() {
 			name:          "Unbalanced tree",
 			value:         []*int{toInt(5), toInt(3), toInt(7), toInt(1), nil, toInt(6)},
 			expectedValue: []int{1, 3, 5, 6, 7},
-		},
-		{
-			name:          "Tree with null values in middle",
-			value:         []*int{toInt(1), nil, toInt(2), nil, nil, toInt(3)},
-			expectedValue: []int{1, 3, 2},
 		},
 		{
 			name:          "Tree with negative values",

@@ -28,22 +28,38 @@ Follow up: Recursive solution is trivial, could you do it iteratively?
 
 # First thoughts:
 - Figure out what inorder means.
+- It means: leftNode - root - rightNode
+- Use recursion
 
 # Approach:
--
+- Use a helper function recursiveTraversal that takes a node and a pointer to the result slice.
+- Base case: If the node is nil, return.
+- Recursively traverse the left subtree.
+- Append the current node's value to the result slice.
+- Recursively traverse the right subtree.
+- The main function inorderTraversal initializes an empty result slice, calls the helper, and returns the result.
 
 # Key:
--
+- Recursion: The recursive approach naturally follows the inorder pattern by leveraging the call stack to track nodes. Each recursive call handles a subtree, ensuring the left-root-right order.
+- Pointer to Slice: Passing a pointer to the result slice (*[]int) allows the helper function to modify the same slice across recursive calls, avoiding the need to return and merge slices.
+- Base Case: Checking for nil nodes prevents infinite recursion and handles empty trees or missing children.
+- Go Idioms: Using a pointer to the result slice is a common Go pattern for modifying slices in recursive functions, ensuring efficient memory usage.
 
 # Complexity:
-- Time: $$O(1 + n)$$
-- Space: $$O(1 + n)$$
+- Time: $O(n)$ where $n$ is the number of nodes.
+- Space: $O(h)$ where $h$ is the height of the tree.
 
 # Constraints:
--
+- The number of nodes in the tree is in the range [0, 100].
+- Node values are integers in the range [-100, 100].
+- The input tree is valid.
 
 # Optimizations:
--
+- Iterative Solution: The follow-up suggests an iterative approach using an explicit stack to mimic the recursive call stack. This could reduce the risk of stack overflow for very deep trees (though unlikely given the constraint of up to 100 nodes). An iterative solution would have the same time and space complexity but might be preferred in some production environments.
+
+- Memory Efficiency: The current solution is efficient, but pre-allocating the result slice with a known size (if the tree size is provided) could reduce reallocations during append.
+
+- Morris Traversal: An advanced optimization (not implemented here) could achieve $$O(1)$$ auxiliary space by temporarily modifying the tree structure to avoid using a stack or recursion. This is complex and may not be practical for most use cases.
 
 # List of solved problems:
 
