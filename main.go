@@ -2,27 +2,45 @@ package main
 
 import (
 	"fmt"
+	"slices"
 )
 
-func someFunc(s string) string {
-	return s + "!"
+type TreeNode struct {
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
+}
+
+func recursiveTraversal(node *TreeNode, result *[]int) {
+	if node == nil {
+		return
+	}
+
+	recursiveTraversal(node.Left, result)
+	*result = append(*result, node.Val)
+	recursiveTraversal(node.Right, result)
+}
+
+func inorderTraversal(root *TreeNode) []int {
+	result := []int{}
+	recursiveTraversal(root, &result)
+
+	return result
 }
 
 func main() {
 	testCases := []struct {
-		value         string
-		expectedValue string
+		value         *TreeNode
+		expectedValue []int
 	}{
-		{"LeetCode", "LeetCode!"},
-		{"LeetCode!", "LeetCode!!"},
-		{"LeetCode!!", "LeetCode!!!"},
+		{&TreeNode{}, []int{1, 3, 4, 5, 7}},
 	}
 
 	for i, tc := range testCases {
-		response := someFunc(tc.value)
+		response := inorderTraversal(tc.value)
 
 		err := false
-		if response != tc.expectedValue {
+		if !slices.Equal(response, tc.expectedValue) {
 			fmt.Printf("Testcase %d error: wanted (%v), got (%v)\n", i+1, tc.expectedValue, response)
 			err = true
 		}
